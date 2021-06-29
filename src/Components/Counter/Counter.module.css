@@ -1,0 +1,66 @@
+.counter_content {
+    grid-area: c;
+    background-color: #f2faff;
+    width: min-content;
+    height: min-content;
+    display: grid;
+    grid-template-areas:
+            "d"
+            "e"
+            "b";
+
+    margin: 200px 0 0 0;
+    border-radius: 5px;
+}
+
+.counter_display {
+    grid-area: d;
+    width: 100px;
+    height: 30px;
+    border: #df38ff 2px solid;
+    margin: 10px;
+    border-radius: 10px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.counter_maxValue {
+    color: red;
+}
+
+.counter_error {
+    grid-area: e;
+    color: red;
+    font-size: 8px;
+    height: 8px;
+    margin: -10px 0 -10px 0;
+}
+
+.counter_buttons {
+    grid-area: b;
+    width: 100px;
+    margin: 10px;
+}
+
+.counter_buttonInc {
+    width: 40px;
+    border-radius: 10px;
+    border-color: #97ff82;
+    font-weight: bold;
+}
+
+.counter_buttonInc:hover {
+    background-color: #97ff82;
+}
+
+.counter_buttonRes {
+    border-radius: 10px;
+    border-color: #ff3a36;
+    width: 40px;
+    margin: 0 0 0 20px;
+    font-weight: bold;
+}
+
+.counter_buttonRes:hover {
+    background-color: #ff3a36;
+}
