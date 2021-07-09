@@ -1,4 +1,5 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react"
+import React from "react"
+import {Button} from "../Button/ButtonComp"
 import style from "./Counter.module.css"
 
 type CounterType = {
@@ -6,11 +7,18 @@ type CounterType = {
     increment: () => void
     reset: () => void
     error: boolean
+    maxValue: number
+    initVal: number
+    setIsCounter:()=>void
 }
 
-export const Counter: React.FC<CounterType> = ({value, increment, reset, error}) => {
+export const Counter: React.FC<CounterType> = ({
+                                                   value, initVal, increment,
+                                                   maxValue, reset, error,
+                                                   setIsCounter
+                                               }) => {
 
-    const styles = () => `${value === 5 ? style.counter_maxValue : ""} ${style.counter_display}`
+    const styles = () => `${value === maxValue ? style.counter_maxValue : ""} ${style.counter_display}`
 
     return (
         <div className={style.counter_content}>
@@ -24,29 +32,11 @@ export const Counter: React.FC<CounterType> = ({value, increment, reset, error})
                         disabled={error}> Inc </Button>
                 <Button className={style.counter_buttonRes}
                         callback={reset}
-                        disabled={value === 0}> Res </Button>
+                        disabled={value === initVal}> Res </Button>
+                <Button className={style.counter_buttonSet}
+                        callback={setIsCounter}> Set </Button>
             </div>
         </div>
     )
 }
 
-type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
-type ButtonPropsType = DefaultButtonPropsType & {
-    callback: () => void
-}
-
-const Button: React.FC<ButtonPropsType> = (
-    {
-        className,
-        callback,
-        ...restProps
-    }
-) => {
-    return (
-        <button
-            className={className}
-            onClick={callback}
-            {...restProps}
-        />
-    )
-}
