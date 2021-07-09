@@ -10,7 +10,7 @@ function App() {
     let [MaxValue, setMaxValue] = useState(5)
     let [InitValue, setInitValue] = useState(0)
 
-    let [value, setValue] = useState<number>(InitValue)
+    let [counterValue, setCounterValue] = useState<number>(InitValue)
 
     let [isCounter, setIsCounter] = useState<boolean>(true)
 
@@ -43,13 +43,12 @@ function App() {
     }, [MaxValue, InitValue])
 
     useEffect(() => {
-        setValue(InitValue)
+        setCounterValue(InitValue)
     }, [InitValue])
 
     useEffect(() => {
         const max = localStorage.getItem("max") || 5
         const init = localStorage.getItem("init") || 0
-
         if (max) {
             setMaxValue(+max)
         }
@@ -58,15 +57,15 @@ function App() {
         }
     }, [])
 
-    const incValue = () => {
-        setValue(value + 1)
+    const incCounterValue = () => {
+        setCounterValue(counterValue + 1)
     }
 
-    const resValue = () => {
-        setValue(InitValue)
+    const resCounterValue = () => {
+        setCounterValue(InitValue)
     }
 
-    const setVal = () => {
+    const switchButtonHandler = () => {
         setIsCounter(!isCounter)
     }
 
@@ -80,25 +79,27 @@ function App() {
 
     const setInitHandler = (e: FormEvent<HTMLInputElement>) => {
         setInitValue(InitValue = +e.currentTarget.value)
+        setInitVal(InitValue.toString())
     }
     const setMaxHandler = (e: FormEvent<HTMLInputElement>) => {
         setMaxValue(MaxValue = +e.currentTarget.value)
+        setMaxVal(MaxValue.toString())
     }
 
     return (
         <div className="App">
             {isCounter
                 ? <Counter
-                    value={value}
-                    increment={incValue}
-                    reset={resValue}
-                    error={value >= MaxValue}
+                    value={counterValue}
+                    increment={incCounterValue}
+                    reset={resCounterValue}
+                    error={counterValue >= MaxValue}
                     maxValue={MaxValue}
-                    initVal={InitValue}
-                    setIsCounter={setVal}
+                    initValue={InitValue}
+                    setIsCounter={switchButtonHandler}
                 />
                 : <SetCounter
-                    setIsCounter={setVal}
+                    setIsCounter={switchButtonHandler}
                     maxVal={MaxValue}
                     initVal={InitValue}
                     setMaxVal={setMaxVal}
