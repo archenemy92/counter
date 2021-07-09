@@ -1,0 +1,39 @@
+.setCounter_content {
+    grid-area: c;
+    background-color: #f2faff;
+    width: min-content;
+    height: min-content;
+    display: grid;
+    grid-template-areas:
+            "i"
+            "b";
+
+    margin: 200px 0 0 0;
+    border-radius: 5px;
+}
+.setCounter_input {
+    width: 100px;
+}
+
+.errorInput {
+    border-color: #ff3a36;
+    color: #ff3a36;
+}
+
+.setCounter_button {
+    grid-area: b;
+    margin: auto auto 5px auto;
+    width: 50px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.setCounter_button:hover {
+    background-color: rgba(93,255,62,0.75);
+}
+.setCounter_inputs {
+    grid-area: i;
+    border: rgba(63,94,255,0.75) solid 2px;
+    padding: 0 0 10px 0;
+    margin: 5px;
+    border-radius: 5px;
+}
