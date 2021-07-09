@@ -1,0 +1,28 @@
+.Input {
+    height: 10px;
+    margin: 0 10px;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    border-color: rgba(63,94,255,0.75);
+    outline: none;
+}
+
+.label {
+    font-size: 8px;
+    font-weight: bold;
+    text-align: start;
+    margin: 0 0 -5px 15px;
+}
+.errorInput {
+    border-color: #ff3a36;
+    color: #ff3a36;
+}
+
+.error {
+    color: #ff3a36;
+    font-size: 8px;
+    font-weight: bold;
+    display: block;
+    padding: 0 0 3px 0;
+}
