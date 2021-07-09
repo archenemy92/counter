@@ -41,12 +41,14 @@
     width: 100px;
     margin: 10px;
 }
-
-.counter_buttonInc {
+.counter_buttons button {
+    font-weight: bold;
     width: 40px;
     border-radius: 10px;
+}
+
+.counter_buttonInc {
     border-color: #97ff82;
-    font-weight: bold;
 }
 
 .counter_buttonInc:hover {
@@ -54,13 +56,19 @@
 }
 
 .counter_buttonRes {
-    border-radius: 10px;
     border-color: #ff3a36;
-    width: 40px;
     margin: 0 0 0 20px;
-    font-weight: bold;
 }
 
 .counter_buttonRes:hover {
     background-color: #ff3a36;
+}
+
+.counter_buttonSet {
+    margin: 10px 0 0 0;
+}
+
+.counter_buttonSet:hover {
+    background-color: rgba(63,65,92,0.75);
+    color: white;
 }
