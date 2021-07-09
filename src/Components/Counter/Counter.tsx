@@ -8,12 +8,12 @@ type CounterType = {
     reset: () => void
     error: boolean
     maxValue: number
-    initVal: number
+    initValue: number
     setIsCounter:()=>void
 }
 
 export const Counter: React.FC<CounterType> = ({
-                                                   value, initVal, increment,
+                                                   value, initValue, increment,
                                                    maxValue, reset, error,
                                                    setIsCounter
                                                }) => {
@@ -32,7 +32,7 @@ export const Counter: React.FC<CounterType> = ({
                         disabled={error}> Inc </Button>
                 <Button className={style.counter_buttonRes}
                         callback={reset}
-                        disabled={value === initVal}> Res </Button>
+                        disabled={value === initValue}> Res </Button>
                 <Button className={style.counter_buttonSet}
                         callback={setIsCounter}> Set </Button>
             </div>
