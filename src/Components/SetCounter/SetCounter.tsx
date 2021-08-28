@@ -2,14 +2,13 @@ import React, {FormEvent} from "react"
 import style from "./SetCounter.module.css"
 import {Button} from "../Button/ButtonComp"
 import {Input} from "../Input/InputComp"
-import {ErrTypes} from "../../App"
+import {ErrTypes} from "../../bll/reducer"
+
 
 type SetCounterPropsType = {
     setIsCounter: () => void
     maxVal: number
     initVal: number
-    setInitVal: (val: string) => void
-    setMaxVal: (val: string) => void
     disable: boolean
     setInitHandler: (e: FormEvent<HTMLInputElement>) => void
     setMaxHandler: (e: FormEvent<HTMLInputElement>) => void

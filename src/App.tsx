@@ -1,18 +1,15 @@
 import React, {FormEvent, useEffect, useState} from "react"
 import "./App.css"
+import {AppStateType} from "./bll/store"
 import {Counter} from "./Components/Counter/Counter"
 import {SetCounter} from "./Components/SetCounter/SetCounter"
-
-
-export type ErrTypes = "MAX" | "INIT" | ""
+import {useDispatch, useSelector} from "react-redux"
+import {inc, init, max, res, StateType, ErrTypes, switcher, valueAC} from "./bll/reducer"
 
 function App() {
-    let [MaxValue, setMaxValue] = useState(5)
-    let [InitValue, setInitValue] = useState(0)
 
-    let [counterValue, setCounterValue] = useState<number>(InitValue)
-
-    let [isCounter, setIsCounter] = useState<boolean>(true)
+    const {value, maxValue, initialValue, switchToSet} = useSelector<AppStateType, StateType>(state => state.root)
+    const dispatch = useDispatch()
 
     let [error, setError] = useState<string>("")
     let [errorCode, setErrorCode] = useState<ErrTypes>("")
@@ -21,89 +18,66 @@ function App() {
         let errMessage = ""
         let errCode: ErrTypes = ""
 
-        if (InitValue < 0) {
+        if (initialValue < 0) {
             errMessage = "start value can't be less than 0"
             errCode = "INIT"
         }
         setError(errMessage)
         setErrorCode(errCode)
-        if (MaxValue < InitValue) {
+        if (maxValue < initialValue) {
             errMessage = "max value can't be less then start value"
             errCode = "MAX"
         }
         setError(errMessage)
         setErrorCode(errCode)
-        if (MaxValue === InitValue) {
+        if (maxValue === initialValue) {
             errMessage = "max value can't be equal to start value"
             errCode = "MAX"
         }
         setError(errMessage)
         setErrorCode(errCode)
 
-    }, [MaxValue, InitValue])
+    }, [maxValue, initialValue])
 
     useEffect(() => {
-        setCounterValue(InitValue)
-    }, [InitValue])
-
-    useEffect(() => {
-        const max = localStorage.getItem("max") || 5
-        const init = localStorage.getItem("init") || 0
-        if (max) {
-            setMaxValue(+max)
-        }
-        if (init) {
-            setInitValue(+init)
-        }
-    }, [])
+        dispatch(valueAC(initialValue))
+    }, [initialValue])
 
     const incCounterValue = () => {
-        setCounterValue(counterValue + 1)
+        dispatch(inc())
     }
 
     const resCounterValue = () => {
-        setCounterValue(InitValue)
+        dispatch(res())
     }
 
     const switchButtonHandler = () => {
-        setIsCounter(!isCounter)
-    }
-
-    const setMaxVal = (val: string) => {
-        localStorage.setItem("max", val)
-    }
-
-    const setInitVal = (val: string) => {
-        localStorage.setItem("init", val)
+        dispatch(switcher())
     }
 
     const setInitHandler = (e: FormEvent<HTMLInputElement>) => {
-        setInitValue(InitValue = +e.currentTarget.value)
-        setInitVal(InitValue.toString())
+        dispatch(init(+e.currentTarget.value))
     }
     const setMaxHandler = (e: FormEvent<HTMLInputElement>) => {
-        setMaxValue(MaxValue = +e.currentTarget.value)
-        setMaxVal(MaxValue.toString())
+        dispatch(max(+e.currentTarget.value))
     }
 
     return (
         <div className="App">
-            {isCounter
+            {!switchToSet
                 ? <Counter
-                    value={counterValue}
+                    value={value}
                     increment={incCounterValue}
                     reset={resCounterValue}
-                    error={counterValue >= MaxValue}
-                    maxValue={MaxValue}
-                    initValue={InitValue}
+                    error={value >= maxValue}
+                    maxValue={maxValue}
+                    initValue={initialValue}
                     setIsCounter={switchButtonHandler}
                 />
                 : <SetCounter
                     setIsCounter={switchButtonHandler}
-                    maxVal={MaxValue}
-                    initVal={InitValue}
-                    setMaxVal={setMaxVal}
-                    setInitVal={setInitVal}
+                    maxVal={maxValue}
+                    initVal={initialValue}
                     disable={!!error}
                     setInitHandler={setInitHandler}
                     setMaxHandler={setMaxHandler}
