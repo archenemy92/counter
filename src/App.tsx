@@ -4,11 +4,11 @@ import {AppStateType} from "./bll/store"
 import {Counter} from "./Components/Counter/Counter"
 import {SetCounter} from "./Components/SetCounter/SetCounter"
 import {useDispatch, useSelector} from "react-redux"
-import {inc, init, max, res, StateType, ErrTypes, switcher, valueAC} from "./bll/reducer"
+import {setInitValue, setMaxValue, resetValue, StateType, ErrTypes, switcher, setValue, increment} from "./bll/reducer"
 
 function App() {
 
-    const {value, maxValue, initialValue, switchToSet} = useSelector<AppStateType, StateType>(state => state.root)
+    const {value, maxValue, initialValue, switchToSet} = useSelector<AppStateType, StateType>(state => state.counter)
     const dispatch = useDispatch()
 
     let [error, setError] = useState<string>("")
@@ -40,15 +40,15 @@ function App() {
     }, [maxValue, initialValue])
 
     useEffect(() => {
-        dispatch(valueAC(initialValue))
+        dispatch(setValue(initialValue))
     }, [initialValue])
 
     const incCounterValue = () => {
-        dispatch(inc())
+        dispatch(increment())
     }
 
     const resCounterValue = () => {
-        dispatch(res())
+        dispatch(resetValue())
     }
 
     const switchButtonHandler = () => {
@@ -56,10 +56,10 @@ function App() {
     }
 
     const setInitHandler = (e: FormEvent<HTMLInputElement>) => {
-        dispatch(init(+e.currentTarget.value))
+        dispatch(setInitValue(+e.currentTarget.value))
     }
     const setMaxHandler = (e: FormEvent<HTMLInputElement>) => {
-        dispatch(max(+e.currentTarget.value))
+        dispatch(setMaxValue(+e.currentTarget.value))
     }
 
     return (

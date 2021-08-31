@@ -1,11 +1,11 @@
 export type ErrTypes = "MAX" | "INIT" | ""
 
 type SwitcherType = ReturnType<typeof switcher>
-type IncType = ReturnType<typeof inc>
-type ResType = ReturnType<typeof res>
-type InitType = ReturnType<typeof init>
-type MaxType = ReturnType<typeof max>
-type ValueType = ReturnType<typeof valueAC>
+type IncType = ReturnType<typeof increment>
+type ResType = ReturnType<typeof resetValue>
+type InitType = ReturnType<typeof setInitValue>
+type MaxType = ReturnType<typeof setMaxValue>
+type ValueType = ReturnType<typeof setValue>
 
 type ActionsType = SwitcherType
     | IncType
@@ -30,42 +30,42 @@ export const initState: StateType = {
 }
 
 
-export const mainReducer = (state = initState, action: ActionsType) => {
+export const counterReducer = (state = initState, action: ActionsType) => {
     switch (action.type) {
-        case "SWITCH": {
+        case "COUNTER_SWITCH": {
             return {
                 ...state,
                 switchToSet: !state.switchToSet
             }
         }
-        case "INC": {
+        case "COUNTER_INCREMENT_VALUE": {
             return {
                 ...state,
                 value: state.value + 1
             }
         }
-        case "RES": {
+        case "COUNTER_RESET_VALUE": {
             return {
                 ...state,
                 value: state.initialValue
             }
         }
-        case "INIT": {
+        case "COUNTER_SET_INITIAL_VALUE": {
             return {
                 ...state,
-                initialValue: action.val
+                initialValue: action.value
             }
         }
-        case "MAX": {
+        case "COUNTER_SET_MAX_VALUE": {
             return {
                 ...state,
-                maxValue: action.val
+                maxValue: action.value
             }
         }
-        case "VALUE": {
+        case "COUNTER_SET_VALUE": {
             return {
                 ...state,
-                value: action.val
+                value: action.value
             }
         }
 
@@ -77,36 +77,37 @@ export const mainReducer = (state = initState, action: ActionsType) => {
 
 export const switcher = () => {
     return {
-        type: "SWITCH"
+        type: "COUNTER_SWITCH"
     } as const
 }
 
-export const inc = () => {
+export const increment = () => {
     return {
-        type: "INC"
+        type: "COUNTER_INCREMENT_VALUE"
+    } as const
+
+}
+export const resetValue = () => {
+    return {
+        type: "COUNTER_RESET_VALUE"
     } as const
 }
-export const res = () => {
+export const setInitValue = (value: number) => {
     return {
-        type: "RES"
+        type: "COUNTER_SET_INITIAL_VALUE",
+        value
     } as const
 }
-export const init = (val: number) => {
+export const setMaxValue = (value: number) => {
     return {
-        type: "INIT",
-        val
+        type: "COUNTER_SET_MAX_VALUE",
+        value
     } as const
 }
-export const max = (val: number) => {
+export const setValue = (value: number) => {
     return {
-        type: "MAX",
-        val
-    } as const
-}
-export const valueAC = (val: number) => {
-    return {
-        type: "VALUE",
-        val
+        type: "COUNTER_SET_VALUE",
+        value
     } as const
 }
 
